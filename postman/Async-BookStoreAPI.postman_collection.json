@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "996230ac-96d5-4f99-8763-0f81e328b833",
+		"name": "Async-BookStoreAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21116205"
+	},
+	"item": [
+		{
+			"name": "BookListRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/books/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"books",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BookList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/books/requests/34802d29-5992-495d-a4dc-0eb220d5b459",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"books",
+						"requests",
+						"34802d29-5992-495d-a4dc-0eb220d5b459"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "async-book-list-api",
+    "version": "1.0.0",
+    "description": "API for requesting a list of books asynchronously due to the long processing time.Clients first submit a request and then poll the status using a request ID.",
+    "license": "UNLICENSED",
+    "private": true,
+    "main": "index.js",
+    "scripts": {
+        "prestart": "npm install --only=prod",
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@oas-tools/core": "^3.0.0",
+        "express": "^4.18.0",
+        "uuid": "^11.1.0"
+    }
+}

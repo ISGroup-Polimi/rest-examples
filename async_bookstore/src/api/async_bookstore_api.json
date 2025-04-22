@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Async Book List API",
+    "version": "1.0.0",
+    "description": "API for requesting a list of books asynchronously due to the long processing time.\nClients first submit a request and then poll the status using a request ID."
+  },
+  "servers": [
+    {
+      "url": "https://bookstore.psd.polimi.it/v1",
+      "description": "Production server"
+    },
+    {
+      "url": "https://localhost:8080/v1",
+      "description": "Test server"
+    }
+  ],
+  "paths": {
+    "/books/requests": {
+      "post": {
+        "summary": "Initiate async request for book list",
+        "operationId": "requestBookList",
+        "responses": {
+          "202": {
+            "description": "Request accepted for processing",
+            "headers": {
+              "Location": {
+                "description": "URL to poll for the result",
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "description": "Unique identifier for the request"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending"
+                      ],
+                      "example": "pending"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/requests/{requestId}": {
+      "get": {
+        "summary": "Check status of book list request",
+        "operationId": "getBookListStatus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "requestId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique request ID returned when the async process started"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book list is ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "completed"
+                      ]
+                    },
+                    "books": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "author": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Still processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requestId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Request ID not found"
+          }
+        }
+      }
+    }
+  }
+}
