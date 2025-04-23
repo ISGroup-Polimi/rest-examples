@@ -1,0 +1,96 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Babysitter Availability API",
+      "version": "1.0.0",
+      "description": "API to manage and retrieve information about babysitters and their availabilities."
+    },
+    "servers": [
+      {
+        "url": "https://api.babysitters.com/v1"
+      }
+    ],
+    "paths": {
+      "/babysitters": {
+        "get": {
+          "summary": "Get all babysitters",
+          "operationId": "listBabysitters",
+          "responses": {
+            "200": {
+              "description": "A list of babysitters",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Babysitter"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/babysitters/{id}": {
+        "get": {
+          "summary": "Get a specific babysitter by ID",
+          "operationId": "getBabysitter",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the babysitter",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Details of a specific babysitter",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Babysitter"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Babysitter not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Babysitter": {
+          "type": "object",
+          "required": ["id", "name", "address", "cellphone"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14"
+            },
+            "name": {
+              "type": "string",
+              "example": "Jane Doe"
+            },
+            "address": {
+              "type": "string",
+              "example": "123 Maple Street, Springfield, IL"
+            },
+            "cellphone": {
+              "type": "string",
+              "example": "+1-555-123-4567"
+            }
+          }
+        }
+      }
+    }
+  }
+  
