@@ -67,7 +67,7 @@ curl -s \
 
 ### Obtain the IAM public-key (via keycloak GUI)
 
-Go to http://localhost:18080/auth/admin/master/console/
+Go to http://localhost:9090/admin/master/console/
 
 Select Realm settings > Keys
 
