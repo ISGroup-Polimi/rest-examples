@@ -104,3 +104,18 @@ cut and paste the variable and put inthe public.pem file here
 
 [*] procedure taken from https://stackoverflow.com/questions/51337425/keycloak-retrieve-rsa-public-key
 
+## Compatibility issues with Node v.25
+
+As discussed in `https://github.com/auth0/node-jsonwebtoken/issues/992` there is a compatibility issue with the JSON Web Token library used in oastools and node v25. When running the code, the following exception is raised
+
+```
+[oas-tools] ERROR: uncaughtException: Cannot read properties of undefined (reading 'prototype')
+TypeError: Cannot read properties of undefined (reading 'prototype')
+```
+To solve the issue it is required to update the JWA library simply running the command
+
+```
+npm upgrade jwa
+```
+
+This should solve the issue
